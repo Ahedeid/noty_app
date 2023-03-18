@@ -8,7 +8,7 @@ class AppSizes{
   static const double sizeTextPrimary = 40;
   static const double sizeTextMedium = 16;
   static const double sizeSubText = 24;
-  static const double hightAppBar = 80;
+  static const double hightAppBar = 75;
   static const double sizeLogoAppBar = 40;
 
 

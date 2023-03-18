@@ -8,7 +8,8 @@ class EndPoints{
   static const int connectTimeout = 35000;
   static const String loginEndPoint = '/students/auth/login';
   static const String signUpEndPoint = '/students/auth/register';
-  static const String categories = '/categories';
+  static const String createTask = '/tasks';
+  static const String getTask = '/tasks';
 
 
 }

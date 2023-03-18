@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:noty_app/provider/noty_provider.dart';
 import 'package:provider/provider.dart';
 import '../../provider/note_service.dart';
 import '../../utils/colors_manger.dart';
@@ -22,6 +23,10 @@ class ContentOfBottomSheet extends StatefulWidget {
 
 class _ContentOfBottomSheetState extends State<ContentOfBottomSheet> {
   final TextEditingController controller = TextEditingController();
+  addNote(){
+    context.read<NotyProvider>().createNote(token: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIzIiwianRpIjoiNWNhOTA0NDIyMGFlZDIzMDYzNzViYjViOGNmNDcyMmI3MDcwYTU3ZjYzNjg4OWRmY2U0M2Y1OTdhMjEyMTQ1M2NiODliMmZkMjA3ZTNmZDYiLCJpYXQiOjE2NzkxNTkxNjkuMzM3NzUzLCJuYmYiOjE2NzkxNTkxNjkuMzM3NzU4LCJleHAiOjE2ODA4ODcxNjkuMTgyNjUxLCJzdWIiOiIxNiIsInNjb3BlcyI6WyIqIl19.FNbuI2GoHbJK0bxOk5lrCPHuzJLx8Z21LkoWyMGnXJJml1XOEQi6aWjg_JgQ3BHp5N57pqxwjfs5HY2AOEvh_QRcINXd6HLILVtg6UocAyjkkgXfYXGelBpKxAuYFo6qzIE2ANexcKQN41OSvJ2hErjuTAkNrenBGlGSMGWvORA-AYvzz3xnuHWbLJ3pMsRd1B-AGp5bVW1oI85Br1avr5nYcmCTjshzXAXkRcUOMLYwUJNUVRluknJ-aax_Tv1qxno1Crzg0EZ_f_U2NqVqH1iK1wcWvL-kZIih0q-xkOoqaS0sLe35IXbWGpKvZ6BYAZeP2rBzd8OXowTtvSOVy45Y4eqiLl0OBtV8Np3beeDsQqMdmCisXjYXZDc9P2lLSi4XiogOq2_dUywtudUX2teZ-3tdN4vIFDMrZEit8irO9GjWR2vvOd3vdOcJDaW1Z9W5KRXqRaE2OMTinlIPbSR8034t_JMA8TwZg5TygTv1yH7Yj6AjJxWMjB5mrqGcDcWGW1YnC2nTP09L8IBM4Ejak-bcF54GPATK3ImhA1kSSXDeVskV3vdWvbNPfIJ0xssIzpJIH6Dn0qFKkQie7M1YCijy-cWsiPZodUdZrT1rEe3A6LWn-ZxOI0n7eIk0efLki33ulVFvUEqCKkqHlk0rZF9XVNYQ2qKKEef7jiI'
+        , title: controller.text);
+  }
   @override
   void initState() {
     controller.text = widget.NoteText;
@@ -87,7 +92,8 @@ class _ContentOfBottomSheetState extends State<ContentOfBottomSheet> {
              //        .editNote(controller.text,widget.index)
              //        :Provider.of<NoteService>(context, listen: false)
              //         .addNote(controller.text);
-                  Navigator.pop(context);
+                //  Navigator.pop(context);
+                  addNote();
                 },
               ),
               const SizedBox(height: 20,)
