@@ -22,20 +22,25 @@ class NoteApi {
     }
   }
 
-  static Future deleteNote({required String token,required String id}) {
+  static Future deleteNote({required String token, required String id}) {
     try {
-      return BaseClient().delete(
-          '${EndPoints.baseUrl}/tasks/$id',
-
-          options: Options(headers: {"Authorization": "Bearer $token"})
-      );
+      return BaseClient().delete('${EndPoints.baseUrl}/tasks/$id',
+          options: Options(headers: {"Authorization": "Bearer $token"}));
     } catch (e) {
       rethrow;
     }
   }
 
-
-
-
-
+  static Future editNote(
+      {required String token, required String id, required String title}) {
+    try {
+      return BaseClient().put('${EndPoints.baseUrl}/tasks/$id',
+          data: {
+        'title': title
+          },
+          options: Options(headers: {"Authorization": "Bearer $token"}));
+    } catch (e) {
+      rethrow;
+    }
+  }
 }

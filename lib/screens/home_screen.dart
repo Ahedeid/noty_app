@@ -80,7 +80,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             final items = note.noteList[index];
                             return NoteCard(
                               index: index,
-                              noteText: items.created_at,
+                              noteText: items.title,
                               item: itemsKey,
                               noteShow: items,
                               onDismissed: (direction) {
@@ -185,7 +185,7 @@ class NoteCard extends StatelessWidget {
             context: context,
             isScrollControlled: true,
             builder: (context) => ContentOfBottomSheet(
-                isEdit: true, NoteText: noteText, index: index),
+                isEdit: true, NoteText: noteText, index: index, id: context.read<NotyProvider>().noteList[index].id,),
           );
         }
       },
