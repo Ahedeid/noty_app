@@ -85,19 +85,20 @@ class NotyProvider extends ChangeNotifier{
    }
 
 
-   editNote ({required String token,required String id,required String title})async{
+   editNote ({required String token,required String id,required String title,required int index})async{
      setLoading(true);
      try{
        final res = await NoteApi.editNote(token: token, id: id, title: title);
        if(res.statusCode == 200){
-         UtilsConfig.showSnackBarMessage(message: res.data["message"], status: false);
-         getAllNote(token: token);
+         noteList[index].title = title;
+         UtilsConfig.showSnackBarMessage(message: res.data["message"], status: true);
+        // getAllNote(token: token);
        }
        AppRouter.back();
      } on DioError catch(e){
        print(e.toString());
        final errorMessage = DioExceptions.fromDioError(e);
-       UtilsConfig.showSnackBarMessage(message: errorMessage, status: true);
+       UtilsConfig.showSnackBarMessage(message: errorMessage, status: false);
      }
      setLoading(false);
 

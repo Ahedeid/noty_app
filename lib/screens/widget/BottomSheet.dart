@@ -102,7 +102,7 @@ class _ContentOfBottomSheetState extends State<ContentOfBottomSheet> {
                           token:
                           SharedPrefController().getUser().token,
                           id: widget.id,
-                          title: controller.text)
+                          title: controller.text, index: widget.index)
                       : addNote();
                 },
               ),
