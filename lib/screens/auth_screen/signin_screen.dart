@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:noty_app/Api/auth_api.dart';
-import 'package:noty_app/provider/auth_provider.dart';
 import 'package:noty_app/utils/extnsions_validation.dart';
 import 'package:provider/provider.dart';
-import '../../provider/userLoggedIn.dart';
+import '../../logic/provider/auth_provider.dart';
 import '../../routes/app_router.dart';
 import '../../routes/screen_name.dart';
 import '../../utils/colors_manger.dart';

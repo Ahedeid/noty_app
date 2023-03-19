@@ -1,16 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:noty_app/provider/noty_provider.dart';
-import 'package:noty_app/provider/sheard_preferance/shared_pref.dart';
 import 'package:noty_app/screens/widget/BottomSheet.dart';
 import 'package:noty_app/screens/widget/sheared_appbar.dart';
 import 'package:provider/provider.dart';
-import '../model/note_model.dart';
+import '../logic/model/note_model.dart';
+import '../logic/provider/noty_provider.dart';
+import '../logic/provider/sheard_preferance/shared_pref.dart';
 import '../utils/colors_manger.dart';
 import '../utils/images_constant.dart';
 import '../utils/sizes_in_app.dart';
 import '../utils/strings_in_app.dart';
-
-
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -21,12 +19,17 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   @override
-  void initState(){
+  void initState() {
     // TODO: implement initState
     super.initState();
     // Future.delayed(const Duration(seconds:1),() => context.read<NotyProvider>().getAllNote(token: ''),);
-     Future.microtask(() =>  context.read<NotyProvider>().getAllNote(token: SharedPrefController().getUser().token));
+    Future.microtask(
+      () => context
+          .read<NotyProvider>()
+          .getAllNote(token: SharedPrefController().getUser().token),
+    );
   }
+
   @override
   Widget build(BuildContext context) {
     DateTime today = DateTime.now();
@@ -35,66 +38,67 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: const ShearedAppBar(),
-      body: context.watch<NotyProvider>().iLoading ?
-            const Center(
+      body: context.watch<NotyProvider>().iLoading
+          ? const Center(
               child: CircularProgressIndicator(),
             )
-            :context.watch<NotyProvider>().noteList.isEmpty
-          ? Padding(
-              padding: const EdgeInsets.symmetric(
-                  horizontal: AppSizes.paddingHorizontal),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Image.asset(ImageConstant.emptyImage),
-                  const SizedBox(height: 5),
-                  const Text(
-                    AppStrings.emptyText,
-                    style: TextStyle(
-                      fontSize: AppSizes.sizeTextEmptyNote,
-                      color: Color(AppColor.primaryTextColor),
-                    ),
-                  ),
-                ],
-              ),
-            )
-          : Consumer<NotyProvider>(
-              builder: (context, note, child) {
-                return Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 24, vertical: 10),
-                  child: ListView(
+          : context.watch<NotyProvider>().noteList.isEmpty
+              ? Padding(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: AppSizes.paddingHorizontal),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text(
-                        dateStr,
-                        style: const TextStyle(
-                          color: Color(AppColor.grayColor),
+                      Image.asset(ImageConstant.emptyImage),
+                      const SizedBox(height: 5),
+                      const Text(
+                        AppStrings.emptyText,
+                        style: TextStyle(
+                          fontSize: AppSizes.sizeTextEmptyNote,
+                          color: Color(AppColor.primaryTextColor),
                         ),
                       ),
-                      const SizedBox(height: 10),
-                      ListView.builder(
-                        shrinkWrap: true,
-                        physics: const NeverScrollableScrollPhysics(),
-                          itemCount: note.noteList.length,
-                          itemBuilder: (context, index) {
-                            final itemsKey = note.noteList[index].toString();
-                            final items = note.noteList[index];
-                            return NoteCard(
-                              index: index,
-                              noteText: items.title,
-                              item: itemsKey,
-                              noteShow: items,
-                              onDismissed: (direction) {
-                                // note.removeItem(index);
-                                // note.removeItemFav(index);
-                              },
-                            );
-                          }),
                     ],
                   ),
-                );
-              },
-            ),
+                )
+              : Consumer<NotyProvider>(
+                  builder: (context, note, child) {
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 24, vertical: 10),
+                      child: ListView(
+                        children: [
+                          Text(
+                            dateStr,
+                            style: const TextStyle(
+                              color: Color(AppColor.grayColor),
+                            ),
+                          ),
+                          const SizedBox(height: 10),
+                          ListView.builder(
+                              shrinkWrap: true,
+                              physics: const NeverScrollableScrollPhysics(),
+                              itemCount: note.noteList.length,
+                              itemBuilder: (context, index) {
+                                final itemsKey =
+                                    note.noteList[index].toString();
+                                final items = note.noteList[index];
+                                return NoteCard(
+                                  index: index,
+                                  noteText: items.title,
+                                  item: itemsKey,
+                                  noteShow: items,
+                                  onDismissed: (direction) {
+                                    // note.removeItem(index);
+                                    // note.removeItemFav(index);
+                                  },
+                                );
+                              }),
+                        ],
+                      ),
+                    );
+                  },
+                ),
       floatingActionButton: const Padding(
         padding: EdgeInsets.only(bottom: 10),
         child: MyFloating(),
@@ -162,12 +166,17 @@ class NoteCard extends StatelessWidget {
                         backgroundColor: const Color(AppColor.tealColor),
                       ),
                       onPressed: () {
-                        value.deleteNote(token: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIzIiwianRpIjoiNWNhOTA0NDIyMGFlZDIzMDYzNzViYjViOGNmNDcyMmI3MDcwYTU3ZjYzNjg4OWRmY2U0M2Y1OTdhMjEyMTQ1M2NiODliMmZkMjA3ZTNmZDYiLCJpYXQiOjE2NzkxNTkxNjkuMzM3NzUzLCJuYmYiOjE2NzkxNTkxNjkuMzM3NzU4LCJleHAiOjE2ODA4ODcxNjkuMTgyNjUxLCJzdWIiOiIxNiIsInNjb3BlcyI6WyIqIl19.FNbuI2GoHbJK0bxOk5lrCPHuzJLx8Z21LkoWyMGnXJJml1XOEQi6aWjg_JgQ3BHp5N57pqxwjfs5HY2AOEvh_QRcINXd6HLILVtg6UocAyjkkgXfYXGelBpKxAuYFo6qzIE2ANexcKQN41OSvJ2hErjuTAkNrenBGlGSMGWvORA-AYvzz3xnuHWbLJ3pMsRd1B-AGp5bVW1oI85Br1avr5nYcmCTjshzXAXkRcUOMLYwUJNUVRluknJ-aax_Tv1qxno1Crzg0EZ_f_U2NqVqH1iK1wcWvL-kZIih0q-xkOoqaS0sLe35IXbWGpKvZ6BYAZeP2rBzd8OXowTtvSOVy45Y4eqiLl0OBtV8Np3beeDsQqMdmCisXjYXZDc9P2lLSi4XiogOq2_dUywtudUX2teZ-3tdN4vIFDMrZEit8irO9GjWR2vvOd3vdOcJDaW1Z9W5KRXqRaE2OMTinlIPbSR8034t_JMA8TwZg5TygTv1yH7Yj6AjJxWMjB5mrqGcDcWGW1YnC2nTP09L8IBM4Ejak-bcF54GPATK3ImhA1kSSXDeVskV3vdWvbNPfIJ0xssIzpJIH6Dn0qFKkQie7M1YCijy-cWsiPZodUdZrT1rEe3A6LWn-ZxOI0n7eIk0efLki33ulVFvUEqCKkqHlk0rZF9XVNYQ2qKKEef7jiI',
-                            id: value.noteList[index].id
-                        );
-                      //  Navigator.of(context).pop(true);
-                      } ,
-                      child: value.iLoading? const Center(child: CircularProgressIndicator(),):const Text('DELETE'),
+                        value.deleteNote(
+                            token:
+                                'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIzIiwianRpIjoiNWNhOTA0NDIyMGFlZDIzMDYzNzViYjViOGNmNDcyMmI3MDcwYTU3ZjYzNjg4OWRmY2U0M2Y1OTdhMjEyMTQ1M2NiODliMmZkMjA3ZTNmZDYiLCJpYXQiOjE2NzkxNTkxNjkuMzM3NzUzLCJuYmYiOjE2NzkxNTkxNjkuMzM3NzU4LCJleHAiOjE2ODA4ODcxNjkuMTgyNjUxLCJzdWIiOiIxNiIsInNjb3BlcyI6WyIqIl19.FNbuI2GoHbJK0bxOk5lrCPHuzJLx8Z21LkoWyMGnXJJml1XOEQi6aWjg_JgQ3BHp5N57pqxwjfs5HY2AOEvh_QRcINXd6HLILVtg6UocAyjkkgXfYXGelBpKxAuYFo6qzIE2ANexcKQN41OSvJ2hErjuTAkNrenBGlGSMGWvORA-AYvzz3xnuHWbLJ3pMsRd1B-AGp5bVW1oI85Br1avr5nYcmCTjshzXAXkRcUOMLYwUJNUVRluknJ-aax_Tv1qxno1Crzg0EZ_f_U2NqVqH1iK1wcWvL-kZIih0q-xkOoqaS0sLe35IXbWGpKvZ6BYAZeP2rBzd8OXowTtvSOVy45Y4eqiLl0OBtV8Np3beeDsQqMdmCisXjYXZDc9P2lLSi4XiogOq2_dUywtudUX2teZ-3tdN4vIFDMrZEit8irO9GjWR2vvOd3vdOcJDaW1Z9W5KRXqRaE2OMTinlIPbSR8034t_JMA8TwZg5TygTv1yH7Yj6AjJxWMjB5mrqGcDcWGW1YnC2nTP09L8IBM4Ejak-bcF54GPATK3ImhA1kSSXDeVskV3vdWvbNPfIJ0xssIzpJIH6Dn0qFKkQie7M1YCijy-cWsiPZodUdZrT1rEe3A6LWn-ZxOI0n7eIk0efLki33ulVFvUEqCKkqHlk0rZF9XVNYQ2qKKEef7jiI',
+                            id: value.noteList[index].id);
+                        //  Navigator.of(context).pop(true);
+                      },
+                      child: value.iLoading
+                          ? const Center(
+                              child: CircularProgressIndicator(),
+                            )
+                          : const Text('DELETE'),
                     ),
                   ),
                 ],
@@ -186,7 +195,11 @@ class NoteCard extends StatelessWidget {
             context: context,
             isScrollControlled: true,
             builder: (context) => ContentOfBottomSheet(
-                isEdit: true, noteText: noteText, index: index, id: context.read<NotyProvider>().noteList[index].id,),
+              isEdit: true,
+              noteText: noteText,
+              index: index,
+              id: context.read<NotyProvider>().noteList[index].id,
+            ),
           );
         }
       },

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:noty_app/provider/noty_provider.dart';
 import 'package:provider/provider.dart';
-import '../../provider/sheard_preferance/shared_pref.dart';
+import '../../logic/provider/noty_provider.dart';
+import '../../logic/provider/sheard_preferance/shared_pref.dart';
 import '../../utils/colors_manger.dart';
 import '../../utils/sizes_in_app.dart';
 import 'my_button.dart';
