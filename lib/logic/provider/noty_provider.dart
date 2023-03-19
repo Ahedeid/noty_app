@@ -44,7 +44,7 @@ class NotyProvider extends ChangeNotifier {
       });
       final res = await NoteApi.addNote(token: token, data: formData);
       if (res.statusCode == 201) {
-        getAllNote(token: token);
+        // getAllNote(token: token);
         UtilsConfig.showSnackBarMessage(
           message: "add successfully",
           status: true,
