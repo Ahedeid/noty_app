@@ -1,39 +1,3 @@
-
-
-class UserResponse {
-  bool status;
-  String message;
-  UserModel object;
-
-  UserResponse(
-      {required this.message, required this.status, required this.object});
-
-  factory UserResponse.fromJson(Map<String, dynamic> parsesJson) {
-    return UserResponse(
-      message: parsesJson['message'],
-      status: parsesJson['status'],
-      object: UserModel.formJson(
-        parsesJson['object'],
-      ),
-
-    );
-  }
-
-   Map<String,dynamic> toJson(){
-    return{
-      "message" :message,
-      "status" : status,
-      "object": object
-    };
-   }
-
-   @override
-   String toString() {
-     // TODO: implement toString
-     return 'status: $status , message : $message';
-   }
-}
-
 class UserModel {
   int id;
   String full_name;
@@ -71,12 +35,6 @@ class UserModel {
     };
   }
 }
-
-
-
-
-
-
 
 // void main() {
 //   String jsonFormate = '''{

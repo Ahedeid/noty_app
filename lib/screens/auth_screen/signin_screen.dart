@@ -32,7 +32,7 @@ class _SignInScreenState extends State<SignInScreen> {
 
     context.read<AuthProviderApi>().login(email: _emailController.text, password: _passwordController.text);
  //await Provider.of<AuthProvider>(context,listen: false).login(_emailController.text , _passwordController.text);
- AppRouter.goToAndRemove(screenName: ScreenName.homeScreen);
+ //AppRouter.goToAndRemove(screenName: ScreenName.homeScreen);
 // AuthApi.loginApi(_emailController.text, _passwordController.text);
   }
 
@@ -114,8 +114,8 @@ class _SignInScreenState extends State<SignInScreen> {
                     if (_formKey.currentState!.validate()) {
                       try{
                         savePref();
-                        UtilsConfig.showSnackBarMessage(message: 'Welcome to App!', status: true);
                       }catch(e){
+                        UtilsConfig.showSnackBarMessage(message: e.toString(), status: false);
                         debugPrint(e.toString());
                       }
                     }

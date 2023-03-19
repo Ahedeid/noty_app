@@ -25,11 +25,13 @@ class AuthProviderApi extends ChangeNotifier {
         email: email, password: password,
       );
       if (response.statusCode == 200) {
+        print(response.data["object"].toString());
+        SharedPrefController().save(UserModel.formJson(response.data["object"]));
 
-        SharedPrefController().save(UserResponse.fromJson(response.data["data"]));
         UtilsConfig.showSnackBarMessage(
             message: 'Login Successfully', status: true);
         AppRouter.goToAndRemove(screenName: ScreenName.homeScreen,);
+        UtilsConfig.showSnackBarMessage(message: 'Welcome to App!', status: true);
       }
       setLoading(false);
     } on DioError catch (e) {

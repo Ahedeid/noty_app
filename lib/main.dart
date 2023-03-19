@@ -33,7 +33,7 @@ class _NotyAppState extends State<NotyApp> {
       //  ChangeNotifierProvider(
       //    create: (context) => NoteService(),
       //  ),
-       // ChangeNotifierProvider(create: (_) => AuthProvider()..initPrefs()),
+        ChangeNotifierProvider(create: (_) => AuthProviderApi()),
          ChangeNotifierProvider(create: (_)=> NotyProvider())
       ],
       child: MaterialApp(
@@ -46,7 +46,7 @@ class _NotyAppState extends State<NotyApp> {
         ),
         title: 'Note App Tutorial',
         onGenerateRoute: RouteGenerator.onGenerateRoute,
-         initialRoute: ScreenName.homeScreen,
+         initialRoute: ScreenName.launchScreen,
         navigatorKey: AppRouter.navigatorKey,
          scaffoldMessengerKey: UtilsConfig.scaffoldKey,
       ),

@@ -20,7 +20,8 @@ class SharedPrefController {
     preferences = await SharedPreferences.getInstance();
   }
 
-  save(UserResponse user) async {
+  save(UserModel user) async {
+    setLogedin();
     String userEncoded = jsonEncode(user.toJson());
     await preferences.setString(
       PrefKeys.user.toString(),
@@ -35,10 +36,10 @@ class SharedPrefController {
   bool getLogedin() =>
       preferences.getBool(PrefKeys.logedIn.toString()) ?? false;
 
-  UserResponse getUser() {
+  UserModel getUser() {
     String userJson = preferences.getString(PrefKeys.user.toString()) ?? '';
     final userObject = jsonDecode(userJson);
-    return UserResponse.fromJson(userObject);
+    return UserModel.formJson(userObject);
   }
 
   clear() {

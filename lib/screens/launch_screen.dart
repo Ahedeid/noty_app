@@ -26,7 +26,7 @@ class _LaunchScreenState extends State<LaunchScreen> {
 
     Future.delayed(
         const Duration(seconds: 3),
-            () => AppRouter.goToAndRemove(screenName:isLoggedIn?ScreenName.signInScreen:ScreenName.signInScreen)
+            () => AppRouter.goToAndRemove(screenName:isLoggedIn?ScreenName.homeScreen:ScreenName.signInScreen)
     );
     return Scaffold(
       body: Center(

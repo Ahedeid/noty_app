@@ -13,7 +13,7 @@ import '../widget/my_button.dart';
 import '../widget/my_textFeild.dart';
 
 class SignUpScreen extends StatefulWidget {
-   SignUpScreen({Key? key}) : super(key: key);
+  SignUpScreen({Key? key}) : super(key: key);
 
   @override
   State<SignUpScreen> createState() => _SignUpScreenState();
@@ -27,10 +27,15 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   final TextEditingController _nameController = TextEditingController();
 
-  savePref()async{
-    context.read<AuthProviderApi>().singUp(full_name: _nameController.text, email: _emailController.text, password: _passwordController.text);
+  savePref() async {
+    if(_formKey.currentState!.validate()) {
+      context.read<AuthProviderApi>().singUp(
+          full_name: _nameController.text,
+          email: _emailController.text,
+          password: _passwordController.text);
+    }
     // await Provider.of<AuthProvider>(context,listen: false).login(_emailController.text , _passwordController.text);
-    AppRouter.goToAndRemove(screenName: ScreenName.homeScreen);
+    // AppRouter.goToAndRemove(screenName: ScreenName.homeScreen);
     // AuthApi.signUpApi(email:_emailController.text,full_name: _nameController.text, password: _passwordController.text  );
   }
 
@@ -42,7 +47,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 24),
           child: Form(
-            key:_formKey ,
+            key: _formKey,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
@@ -68,7 +73,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 ),
                 SizedBox(height: midea.height * 0.03),
                 MyTextField(
-                  controller:_nameController ,
+                  controller: _nameController,
                   validator: (val) {
                     if (!val!.isValidName) return 'Enter valid Name';
                   },
@@ -79,7 +84,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 ),
                 SizedBox(height: midea.height * 0.02),
                 MyTextField(
-                  controller:_emailController ,
+                  controller: _emailController,
                   validator: (val) {
                     if (!val!.isValidEmail) return 'Enter valid email';
                   },
@@ -90,9 +95,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 ),
                 SizedBox(height: midea.height * 0.02),
                 MyTextField(
-                  validator: (val) {
-                    if (!val!.isValidPhone) return 'Enter valid Phone';
-                  },
+                  // validator: (val) {
+                  //   if (!val!.isValidPhone) return 'Enter valid Phone';
+                  // },
                   hintText: 'Phone number',
                   obscureText: false,
                   keyboardType: TextInputType.phone,
@@ -120,12 +125,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   icon: IconsConstant.lock,
                 ),
                 SizedBox(height: midea.height * 0.03),
-                 MyButton(
-                    onPressed: (){
+                MyButton(
+                    onPressed: () {
                       savePref();
-
-                    }
-                    , title: 'Sign UP'),
+                    },
+                    title: 'Sign UP'),
                 SizedBox(height: midea.height * 0.09),
                 InkWell(
                   onTap: () => AppRouter.goToAndRemove(
