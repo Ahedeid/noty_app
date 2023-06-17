@@ -20,6 +20,7 @@ class AuthProviderApi extends ChangeNotifier {
     required String email,
     required String password,
   }) async {
+    print('start excuation of fun');
     setLoading(true);
     try {
       final response = await AuthApi.logIn(
@@ -30,14 +31,13 @@ class AuthProviderApi extends ChangeNotifier {
         print(response.data["object"].toString());
         SharedPrefController()
             .save(UserModel.formJson(response.data["object"]));
-
         UtilsConfig.showSnackBarMessage(
             message: 'Login Successfully', status: true);
         AppRouter.goToAndRemove(
           screenName: ScreenName.homeScreen,
         );
-        UtilsConfig.showSnackBarMessage(
-            message: 'Welcome to App!', status: true);
+        //   UtilsConfig.showSnackBarMessage(
+        //       message: 'Welcome to App!', status: true);
       }
       setLoading(false);
     } on DioError catch (e) {

@@ -123,7 +123,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   icon: IconsConstant.lock,
                 ),
                 SizedBox(height: midea.height * 0.03),
-                MyButton(
+                CustomButtonWidget(
                     onPressed: () {
                       savePref();
                     },

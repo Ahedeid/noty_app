@@ -21,11 +21,12 @@ class NotyProvider extends ChangeNotifier {
       final res = await NoteApi.getAllNote(token: token);
       if (res.statusCode == 200) {
         final List note = res.data['data'];
-        print(note.toString());
-        for (var element in note) {
-          noteList.add(NoteModel.fromJson(element));
-          //      notifyListeners();
-        }
+
+        noteList = note.map((e) => NoteModel.fromJson(e)).toList();
+        // for (var element in note) {
+        //   noteList.add(NoteModel.fromJson(element));
+        //   //      notifyListeners();
+        // }
         noteList = noteList.reversed.toList();
         setLoading(false);
       }
@@ -44,7 +45,7 @@ class NotyProvider extends ChangeNotifier {
       });
       final res = await NoteApi.addNote(token: token, data: formData);
       if (res.statusCode == 201) {
-        // getAllNote(token: token);
+           getAllNote(token: token);
         UtilsConfig.showSnackBarMessage(
           message: "add successfully",
           status: true,

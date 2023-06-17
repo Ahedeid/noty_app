@@ -3,7 +3,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../utils/colors_manger.dart';
 
-
 class MyTextField extends StatelessWidget {
   MyTextField({
     required this.hintText,
@@ -17,9 +16,8 @@ class MyTextField extends StatelessWidget {
     this.width = double.infinity,
     this.vertical = 20,
     this.validator,
-     this.controller,
+    this.controller,
     required this.icon,
-    this.autovalidateMode = AutovalidateMode.onUserInteraction,
     Key? key,
   }) : super(key: key);
 
@@ -47,7 +45,7 @@ class MyTextField extends StatelessWidget {
         style: const TextStyle(color: Color(AppColor.grayColor)),
         onChanged: onChange as Function(String?)?,
         //   onSaved: onSaved as Function(String?)?,
-          controller: controller,
+        controller: controller,
         validator: validator as String? Function(String?)?,
         keyboardType: keyboardType,
         autovalidateMode: autovalidateMode,
@@ -66,13 +64,12 @@ class MyTextField extends StatelessWidget {
           ),
           border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10),
-              borderSide: BorderSide.none
-          ),
-          focusedBorder:  OutlineInputBorder(
+              borderSide: BorderSide.none),
+          focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
             borderSide: const BorderSide(color: Color(AppColor.tealColor)),
           ),
-          errorBorder:  OutlineInputBorder(
+          errorBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
             borderSide: const BorderSide(color: Colors.red),
           ),

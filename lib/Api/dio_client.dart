@@ -11,7 +11,7 @@ class DioClient{
   DioClient(this._dio) {
     _dio.options.baseUrl = EndPoints.baseUrl;
      // .options.connectTimeout = Endpoints.connectionTimeout
-     // .options.receiveTimeout = Endpoints.receiveTimeout
+    // _dio.optio/ns.receiveTimeout = Endpoints.receiveTimeout
      // .options.responseType = ResponseType.json
   }
   //-------------------------------------- get

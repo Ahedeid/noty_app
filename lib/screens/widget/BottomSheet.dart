@@ -93,7 +93,7 @@ class _ContentOfBottomSheetState extends State<ContentOfBottomSheet> {
                 ],
               ),
               SizedBox(height: midea.height * 0.023),
-              MyButton(
+              CustomButtonWidget(
                 isLoading: false,
                 title: 'Save',
                 onPressed: () {

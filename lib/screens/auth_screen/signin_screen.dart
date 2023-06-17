@@ -26,13 +26,13 @@ class _SignInScreenState extends State<SignInScreen> {
   final TextEditingController _passwordController = TextEditingController();
 
 
-  savePref()async{
-
-    context.read<AuthProviderApi>().login(email: _emailController.text, password: _passwordController.text);
- //await Provider.of<AuthProvider>(context,listen: false).login(_emailController.text , _passwordController.text);
- //AppRouter.goToAndRemove(screenName: ScreenName.homeScreen);
-// AuthApi.loginApi(_emailController.text, _passwordController.text);
-  }
+//   savePref()async{
+//
+//     context.read<AuthProviderApi>().login(email: _emailController.text, password: _passwordController.text);
+//  //await Provider.of<AuthProvider>(context,listen: false).login(_emailController.text , _passwordController.text);
+//  //AppRouter.goToAndRemove(screenName: ScreenName.homeScreen);
+// // AuthApi.loginApi(_emailController.text, _passwordController.text);
+//   }
 
   @override
   Widget build(BuildContext context) {
@@ -107,15 +107,18 @@ class _SignInScreenState extends State<SignInScreen> {
                   ],
                 ),
                 SizedBox(height: midea.height * 0.015),
-                MyButton(
+                CustomButtonWidget(
+                  isLoading: context.watch<AuthProviderApi>().isLoading,
                   onPressed: () async {
                     if (_formKey.currentState!.validate()) {
-                      try{
-                        savePref();
-                      }catch(e){
-                        UtilsConfig.showSnackBarMessage(message: e.toString(), status: false);
-                        debugPrint(e.toString());
-                      }
+                        //savePref();
+                      print('button');
+                     try{
+                       context.read<AuthProviderApi>().login(email: _emailController.text, password: _passwordController.text);
+                     }catch (e){
+                       print('inside catch ');
+                       print(e.toString());
+                     }
                     }
                   },
                   title: 'Login',
